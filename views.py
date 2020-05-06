@@ -85,6 +85,9 @@ def get_metadata_and_schema(request):
         context['formset'] = SchemaFormset(request.POST or None)
 
         return render(request, template_name, context)
+    else: # Handle requests that are neither GET nor POST requests (like HEAD)
+        metadata_form = MetadataForm()
+        formset = SchemaFormset()
 
     return render(request, template_name, {
         'metadata_form': metadata_form,
