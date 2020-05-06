@@ -5,8 +5,21 @@ def convert_to_choices_format(xs):
     return [(x,x) for x in xs]
 
 class MetadataForm(forms.Form):
-    LICENSES = ['Creative Commons Attribution', 'Creative Commons Attribution Share-Alike', 'Creative Commons CCZero']
-    LICENSE_CHOICES = convert_to_choices_format(LICENSES)
+    LICENSE_CHOICES = [ ("cc-by", "Creative Commons Attribution"),
+      ("cc-by-sa", "Creative Commons Attribution Share-Alike"),
+      ("cc-zero", "Creative Commons CCZero"),
+      ("cc-nc", "Creative Commons Non-Commercial (Any)"),
+      ("gfdl", "GNU Free Documentation License"),
+      ("notspecified","License not specified"),
+      ("odc-by", "Open Data Commons Attribution License"),
+      ("odc-odbl", "Open Data Commons Open Database License (ODbL)"),
+      ("odc-pddl", "Open Data Commons Public Domain Dedication and License (PDDL)"),
+      ("other-at", "Other (Attribution)"),
+      ("other-nc", "Other (Non-Commercial)"),
+      ("other-closed", "Other (Not Open)"),
+      ("other-open", "Other (Open)"),
+      ("other-pd", "Other (Public Domain)"),
+      ("uk-ogl", "UK Open Government Licence (OGL)")]
     DEPARTMENTS = ["Department of City Planning", "Bureau of Animal Care &amp; Control; Department of Public Safety",
         "Citiparks", "City Clerks Office", "City Controller", "City Council", "Department of City Planning",
         "Emergency Management Agency; Department of Public Safety", "Emergency Medical Services; Department of Public Safety",
