@@ -44,6 +44,8 @@ def get_metadata_and_schema(request):
                 if value:
                     if key in form_field_type_by_name.keys():
                         field_type = avro_type_by_input_type[form_field_type_by_name[key]]
+                        if key in ['_private', 'private']:
+                            field_type = "boolean"
                         dataset_fields_list.append({"name": make_metadata_fieldname(key), "type": field_type, "default": value})
                     else:
                         print(f"{key} is not a dataset metadata field.")
