@@ -41,22 +41,21 @@ class MetadataForm(forms.Form):
         "Hourly", "Multiple Times per Hour", "Streaming (Real Time)"])
 
 
-    #your_name = forms.CharField(label='Your name', max_length=100)
-    _title = forms.CharField(label='Dataset title (required)', max_length=100)
-    #_url = forms.CharField(label='Dataset title', max_length=50, required=False)
-    _notes = forms.CharField(label='Dataset description', widget=forms.Textarea, required=False)
-    _license = forms.ChoiceField(label='Dataset license (required)', required=True, choices=LICENSE_CHOICES)
-    _organization = forms.ChoiceField(label='Publishing organization (hard-coded)', required=True, choices=convert_to_choices_format(['City of Pittsburgh']))
-    _department = forms.ChoiceField(label='Department', required=False, choices=DEPARTMENT_CHOICES)
-    _private = forms.ChoiceField(label='Public/Private (required)', required=True, choices=ACCESS_LEVEL_CHOICES)
-    _access_level_comment = forms.CharField(label='Public access level comment', widget=forms.Textarea, required=False)
-    _temporal_coverage = forms.CharField(label='Temporal coverage (optional and may be overwritten automatically)', required=False, max_length=200)
-    _geographic_unit = forms.ChoiceField(label='Geographic unit', required=False, choices=GEOGRAPHIC_UNIT_CHOICES)
-    _data_notes = forms.CharField(label='Data notes', widget=forms.Textarea, required=False) # Are there any concerns about overall data reliability? Are there any changes in data collection or methods that the user should be aware of? Are there any constraints with data accuracy? What levels of confidence with this dataset could the user reasonably assume?
-    _frequency_data_change = forms.ChoiceField(label="Frequency with which data changes (required)", required=True, choices=DATA_FREQUENCY_CHOICES)
-    _frequency_data_publishing = forms.ChoiceField(label="Frequency with which data is published (required)", required=True, choices=DATA_FREQUENCY_CHOICES)
-    _data_steward_name = forms.CharField(label="Name of data steward (required)", required=True, max_length=100)
-    _data_steward_email = forms.CharField(label="Data steward's e-mail address (required)", required=True, max_length=100)
+    title = forms.CharField(label='Dataset title (required)', max_length=100)
+    #url = forms.CharField(label='Dataset title', max_length=50, required=False)
+    notes = forms.CharField(label='Dataset description', widget=forms.Textarea, required=False)
+    license = forms.ChoiceField(label='Dataset license (required)', required=True, choices=LICENSE_CHOICES)
+    organization = forms.ChoiceField(label='Publishing organization (hard-coded)', required=True, choices=convert_to_choices_format(['City of Pittsburgh']))
+    department = forms.ChoiceField(label='Department', required=False, choices=DEPARTMENT_CHOICES)
+    private = forms.ChoiceField(label='Public/Private (required)', required=True, choices=ACCESS_LEVEL_CHOICES)
+    access_level_comment = forms.CharField(label='Public access level comment', widget=forms.Textarea, required=False)
+    temporal_coverage = forms.CharField(label='Temporal coverage (optional and may be overwritten automatically)', required=False, max_length=200)
+    geographic_unit = forms.ChoiceField(label='Geographic unit', required=False, choices=GEOGRAPHIC_UNIT_CHOICES)
+    data_notes = forms.CharField(label='Data notes', widget=forms.Textarea, required=False) # Are there any concerns about overall data reliability? Are there any changes in data collection or methods that the user should be aware of? Are there any constraints with data accuracy? What levels of confidence with this dataset could the user reasonably assume?
+    frequency_data_change = forms.ChoiceField(label="Frequency with which data changes (required)", required=True, choices=DATA_FREQUENCY_CHOICES)
+    frequency_data_publishing = forms.ChoiceField(label="Frequency with which data is published (required)", required=True, choices=DATA_FREQUENCY_CHOICES)
+    data_steward_name = forms.CharField(label="Name of data steward (required)", required=True, max_length=100)
+    data_steward_email = forms.CharField(label="Data steward's e-mail address (required)", required=True, max_length=100)
 
 class SchemaForm(forms.Form):
     # CKAN field data types from

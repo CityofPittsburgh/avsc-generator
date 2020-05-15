@@ -14,11 +14,6 @@ def widget_input_type(field):
         input_type = 'textarea'
     return input_type
 
-def make_metadata_fieldname(s):
-    """Prepend a string to the metadata fieldname to distinguish it from possible schema
-    fieldnames (which are going to also be put into the Avro schema)."""
-    return re.sub("^_", "", s)
-
 def get_metadata_and_schema(request):
     template_name = 'store/generator.html'
     heading_message = 'Schema Generator'
@@ -34,7 +29,7 @@ def get_metadata_and_schema(request):
         formset = SchemaFormset(request.POST)
         if metadata_form.is_valid() and formset.is_valid():
 
-            title = metadata_form.cleaned_data['_title']
+            title = metadata_form.cleaned_data['title']
 
             form_field_type_by_name = {f.name : widget_input_type(f) for f in metadata_form.visible_fields()}
 
@@ -43,14 +38,14 @@ def get_metadata_and_schema(request):
                "namespace" : "dataset_schemas+metadata",
                "name" : title
                }
-            field_type = {"_title": "string", "_notes": "string"}
+            field_type = {"title": "string", "notes": "string"}
             for key, value in metadata_form.cleaned_data.items():
                 if value:
                     if key in form_field_type_by_name.keys():
                         field_type = avro_type_by_input_type[form_field_type_by_name[key]]
-                        if key in ['_private', 'private']:
+                        if key in ['private']:
                             field_type = "boolean"
-                        avro_schema[make_metadata_fieldname(key)] = value
+                        avro_schema[key] = value
                     else:
                         print(f"{key} is not a dataset metadata field.")
 
@@ -58,13 +53,6 @@ def get_metadata_and_schema(request):
             schema_fields = []
             for k, sf in enumerate(formset):
                 fieldname = sf.cleaned_data['fieldname']
-                if fieldname in [make_metadata_fieldname(f.name) for f in metadata_form.visible_fields()]:
-                    context = {'heading': f"Unable to add a data-table field with a fieldname ({fieldname}) that conflicts with the metadata fieldnames.",
-                            'avro_schema': None,
-                            'metadata_form': metadata_form,
-                            'formset': formset}
-                    return render(request, template_name, context)
-
                 if fieldname != "":
                     fieldtype = sf.cleaned_data['fieldtype']
                     schema_fields.append({"name": fieldname, "type": fieldtype})
