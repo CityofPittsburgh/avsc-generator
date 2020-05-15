@@ -34,9 +34,9 @@ def get_metadata_and_schema(request):
             form_field_type_by_name = {f.name : widget_input_type(f) for f in metadata_form.visible_fields()}
 
             avro_schema = {
+               "name" : title,
                "type" : "record",
                "namespace" : "dataset_schemas+metadata",
-               "name" : title
                }
             field_type = {"title": "string", "notes": "string"}
             for key, value in metadata_form.cleaned_data.items():
@@ -46,6 +46,10 @@ def get_metadata_and_schema(request):
                         if key in ['private']:
                             field_type = "boolean"
                         avro_schema[key] = value
+                        #if field_type == 'boolean':
+                        #    avro_schema[key] = (value == "True")
+                        #else:
+                        #    avro_schema[key] = value
                     else:
                         print(f"{key} is not a dataset metadata field.")
 
