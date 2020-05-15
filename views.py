@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.views import generic
 
-import json
+import re, json
 from pprint import pprint
 
 from .forms import MetadataForm, SchemaForm, SchemaFormset
@@ -17,7 +17,7 @@ def widget_input_type(field):
 def make_metadata_fieldname(s):
     """Prepend a string to the metadata fieldname to distinguish it from possible schema
     fieldnames (which are going to also be put into the Avro schema)."""
-    return "dataset" + s
+    return re.sub("^_", "", s)
 
 def get_metadata_and_schema(request):
     template_name = 'store/generator.html'
@@ -38,7 +38,11 @@ def get_metadata_and_schema(request):
 
             form_field_type_by_name = {f.name : widget_input_type(f) for f in metadata_form.visible_fields()}
 
-            dataset_fields_list = []
+            avro_schema = {
+               "type" : "record",
+               "namespace" : "dataset_schemas+metadata",
+               "name" : title
+               }
             field_type = {"_title": "string", "_notes": "string"}
             for key, value in metadata_form.cleaned_data.items():
                 if value:
@@ -46,7 +50,7 @@ def get_metadata_and_schema(request):
                         field_type = avro_type_by_input_type[form_field_type_by_name[key]]
                         if key in ['_private', 'private']:
                             field_type = "boolean"
-                        dataset_fields_list.append({"name": make_metadata_fieldname(key), "type": field_type, "default": value})
+                        avro_schema[make_metadata_fieldname(key)] = value
                     else:
                         print(f"{key} is not a dataset metadata field.")
 
@@ -65,12 +69,7 @@ def get_metadata_and_schema(request):
                     fieldtype = sf.cleaned_data['fieldtype']
                     schema_fields.append({"name": fieldname, "type": fieldtype})
 
-            avro_schema = {
-               "type" : "record",
-               "namespace" : "dataset_schemas+metadata",
-               "name" : title,
-               "fields" : dataset_fields_list + schema_fields
-               }
+            avro_schema["fields"] = schema_fields
 
             # Show the results.
             context = {
