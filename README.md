@@ -11,13 +11,17 @@ The repository is a Django 3 project, which can be set up by cloning it to your 
 
 `git clone https://github.com/CityofPittsburgh/avsc-generator.git`
 
+Then change to the `avsc-generator` directory and run
+
+`pip install -r requirements.txt`
+
+to install the necessary requirements. This assumes that Python 3.6+ and pip are already installed. (A Python version of 3.6 or higher is required to support the use of f-strings.)
+
 To test it, run
 
 `python manage.py runserver`
 
 and access the project by going to [http://127.0.0.1:8000/generator](http://127.0.0.1:8000/generator/) in a browser.
-
-A Python version of 3.6 or higher is required to support the use of f-strings.
 
 ### Notes on the 'temporal_coverage' field
 
