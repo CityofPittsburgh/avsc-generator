@@ -7,37 +7,15 @@ metadata on [data.wprdc.org](https://data.wprdc.org).
 
 ### Setup
 
-The repository is currently a Django app, which can be added to an existing Django 3.0.3 project by
-changing to the Django project directory, cloning this repository into the directory
+The repository is a Django 3 project, which can be set up by cloning it to your machine:
 
 `git clone https://github.com/CityofPittsburgh/avsc-generator.git`
 
-wiring up URLs by adding this Django app to the Django project's urls.py file
+To test it from an environment supporting Python 3, run
 
-```python
-from django.contrib import admin
-from django.urls import include, path
+`python manage.py runserver`
 
-urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('generator/', include('avsc-generator.urls', namespace='generator') ), # Add a line like this.
-]
-```
-
-and inserting the directory name that contains the app into the INSTALLED_APPS list in the settings.py
-file:
-
-```python
-INSTALLED_APPS = [
-    'django.contrib.admin',
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.messages',
-    'django.contrib.staticfiles',
-    'avsc-generator'
-]
-```
+and access the project by going to [http://127.0.0.1:8000/generator](http://127.0.0.1:8000/generator/) in a browser.
 
 ### Notes on the 'temporal_coverage' field
 
@@ -59,7 +37,7 @@ which is a parsable timestamp>, <resource_id_2>: ...}`.
 3) Here it is just one resource which has a defined timestamp, and that timestamp can be found
 in the `CREATED_ON` field.
 
-The python watchdog script finds these `time_field`s and the associated resource IDs, performs a SQL
+The Python watchdog script finds these `time_field`s and the associated resource IDs, performs a SQL
 query to find the earliest and latest timestamps in the corresponding column, and updates the
 `temporal_coverage` field of the metadata to reflect these results. In this way, the `temporal_coverage`
 field can actually represent the contents of the tables within the dataset (rather than the
