@@ -17,9 +17,8 @@ from django.contrib import admin
 from django.urls import include, path
 
 urlpatterns = [
-    path('old_generator/', include('a_scheme.urls')),
     path('admin/', admin.site.urls),
-    path('generator/', include('store.urls', namespace='store') ), # for testing the store thing with the dynamic Django forms
+    path('generator/', include('store.urls', namespace='store') ),
 ]
 
 
