@@ -64,5 +64,7 @@ class SchemaForm(forms.Form):
             ('date', "Date (date)"), ('time', "Time (time)"), ('timestamp', "Timetstamp (timestamp)"), ('json', "JSON (json)")]
     fieldname = forms.CharField(label='Field name', max_length=40, required=False)
     fieldtype = forms.ChoiceField(label='Field type', choices=TYPE_CHOICES, required=False)
+    required = forms.BooleanField(label='Required', required=False)
+    example = forms.CharField(label='Example value', max_length=40, required=False)
 
 SchemaFormset = formset_factory(SchemaForm)

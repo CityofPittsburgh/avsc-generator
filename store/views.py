@@ -59,7 +59,19 @@ def get_metadata_and_schema(request):
                 fieldname = sf.cleaned_data['fieldname']
                 if fieldname != "":
                     fieldtype = sf.cleaned_data['fieldtype']
-                    schema_fields.append({"name": fieldname, "type": fieldtype})
+                    required = sf.cleaned_data['required']
+                    example = sf.cleaned_data['example']
+                    if len(example) == 0:
+                        example = None
+                    if required:
+                        type_value = fieldtype
+                    else:
+                        type_value = ["null", fieldtype]
+
+                    if example is not None:
+                        schema_fields.append({"name": fieldname, "type": type_value, "example": example})
+                    else:
+                        schema_fields.append({"name": fieldname, "type": type_value})
 
             avro_schema["fields"] = schema_fields
 
