@@ -93,9 +93,7 @@ class SchemaForm(forms.Form):
     # CKAN field data types from
     #   https://docs.ckan.org/en/2.8/maintaining/datastore.html#valid-types
     TYPE_CHOICES = [('string', "String (string)"), ('int', "Integer (int)"), ('float', "Float (float)"),
-                    ('bool', "Boolean (bool)"),
-                    ('date', "Date (date)"), ('time', "Time (time)"), ('timestamp', "Timetstamp (timestamp)"),
-                    ('json', "JSON (json)")]
+                    ('bool', "Boolean (bool)"), ('bytes', "Bytes (bytes)")]
     fieldname = forms.CharField(label='Field name', max_length=40, required=False)
     fieldtype = forms.ChoiceField(label='Field type', choices=TYPE_CHOICES, required=False)
     required = forms.BooleanField(label='Required', required=False)
