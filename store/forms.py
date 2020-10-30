@@ -38,12 +38,12 @@ class MetadataForm(forms.Form):
                       "Other (Public Domain)",
                       "UK Open Government Licence (OGL)"]
     LICENSE_TITLE_CHOICES = convert_to_choices_format(LICENSE_TITLES)
-    DEPARTMENTS = ["Department of City Planning", "Bureau of Animal Care &amp; Control; Department of Public Safety",
+    DEPARTMENTS = ["Department of City Planning", "Bureau of Animal Care and Control; Department of Public Safety",
                    "Citiparks", "City Clerks Office", "City Controller", "City Council",
                    "Emergency Management Agency; Department of Public Safety",
                    "Emergency Medical Services; Department of Public Safety",
                    "Department of Finance", "Fire Bureau; Department of Public Safety",
-                   "Department of Innovation &amp; Performance",
+                   "Department of Innovation and Performance",
                    "Law Department", "Mayor's Office", "Department of Mobility and Infrastructure",
                    "Office of Municipal Investigations",
                    "Pension Office", "Department of Personnel and Civil Service Commission",
@@ -51,8 +51,8 @@ class MetadataForm(forms.Form):
                    "Department of Public Safety", "Department of Public Works", "Office of Management and Budget",
                    "Department of Permits, Licenses, and Inspections", "External"]
     DEPARTMENT_CHOICES = convert_to_choices_format(DEPARTMENTS)
-    DEPARTMENT_CHOICES[1] = ("Bureau of Animal Care &amp; Control; Department of Public Safety",
-                             "Bureau of Animal Care & Control; Department of Public Safety")
+    DEPARTMENT_CHOICES[1] = ("Bureau of Animal Care and Control; Department of Public Safety",
+                             "Bureau of Animal Care and Control; Department of Public Safety")
     ACCESS_LEVEL_CHOICES = [(True, "Private"), (False, "Public")]
     GEOGRAPHIC_UNIT_CHOICES = [("", ""), ("Not Applicable", "N/A"), ("Latitude/Longitude", "Latitude/Longitude"),
                                ("Street Address", "Street Address"),
@@ -93,7 +93,7 @@ class SchemaForm(forms.Form):
     # CKAN field data types from
     #   https://docs.ckan.org/en/2.8/maintaining/datastore.html#valid-types
     TYPE_CHOICES = [('string', "String (string)"), ('int', "Integer (int)"), ('float', "Float (float)"),
-                    ('bool', "Boolean (bool)"), ('bytes', "Bytes (bytes)")]
+                    ('boolean', "Boolean (boolean)"), ('bytes', "Bytes (bytes)")]
     fieldname = forms.CharField(label='Field name', max_length=40, required=False)
     fieldtype = forms.ChoiceField(label='Field type', choices=TYPE_CHOICES, required=False)
     required = forms.BooleanField(label='Required', required=False)
