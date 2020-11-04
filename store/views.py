@@ -56,7 +56,7 @@ def get_metadata_and_schema(request):
 
             schema_fields = []
             for k, sf in enumerate(formset):
-                fieldname = sf.cleaned_data['fieldname']
+                fieldname = sf.cleaned_data.get('fieldname', '')
                 if fieldname != "":
                     fieldtype = sf.cleaned_data['fieldtype']
                     required = sf.cleaned_data['required']
